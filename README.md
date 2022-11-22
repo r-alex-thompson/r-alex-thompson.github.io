@@ -1,6 +1,6 @@
 # Let's test this thing
 
-# About.md
+Here's a link to the [About Me](About.md) page
 
 <html>
 <head>
