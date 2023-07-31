@@ -1,6 +1,4 @@
-div {
-  column-count: 3;
-}
+<link rel="stylesheet" type="text/css" href="styles.css">
 
 [Neutral Theory Tools](PCMN.html)
 
