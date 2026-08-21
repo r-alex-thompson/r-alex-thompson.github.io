@@ -1,166 +1,23 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Independent technical consulting for nature-based carbon projects. Ex-ante carbon modeling, ecological diligence, growth and survival modeling, and uncertainty analysis.">
+<title>R. Alex Thompson, PhD | Nature-Based Carbon Science</title>
 <style>
-* {box-sizing: border-box;}
-
-body { 
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.header {
-  overflow: hidden;
-  background-color: #f1f1f1;
-  padding: 10px 2px;
-}
-
-.header a {
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 18px; 
-  line-height: 25px;
-  border-radius: 4px;
-}
-
-.header a.logo {
-  font-size: 40px;
-  font-weight: bold;
-}
-
-.header a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.header a.active {
-  background-color: dodgerblue;
-  color: white;
-}
-
-.header-left {
-  float: left;
-}
-
-/* Style the tab */
-.tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-}
-
-/* Style the buttons inside the tab */
-.tab button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  font-size: 17px;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-  background-color: #ccc;
-}
-
-/* Style the tab content  */
-.tabcontent {
-  display: none;
-  float: left;
-  padding: 100px 20px;
-  height: 100%;
-  border: none;
-}
-
-
+:root{--ink:#17221d;--muted:#5f6c65;--paper:#f4f1e8;--white:#fbfaf6;--forest:#214b37;--sage:#cbd6c9;--line:#d9d8cf;--accent:#a94f2c;--max:1160px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}a{color:inherit}nav{position:sticky;top:0;z-index:20;background:rgba(244,241,232,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.nav{max-width:var(--max);margin:auto;padding:18px 28px;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:750;letter-spacing:-.02em;text-decoration:none}.brand small{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);font-weight:650}.links{display:flex;gap:28px;align-items:center}.links a{text-decoration:none;font-size:14px}.contact-pill{border:1px solid var(--ink);padding:8px 14px;border-radius:999px}.wrap{max-width:var(--max);margin:auto;padding:0 28px}.hero{min-height:78vh;display:grid;grid-template-columns:1.4fr .6fr;gap:70px;align-items:center;padding:90px 0 80px}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.18em;color:var(--forest);font-weight:750;margin-bottom:22px}.hero h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(54px,7vw,94px);font-weight:400;line-height:.98;letter-spacing:-.045em;margin:0 0 32px;max-width:900px}.hero h1 em{color:var(--forest);font-weight:400}.lead{font-size:20px;color:var(--muted);max-width:720px;margin:0 0 32px}.actions{display:flex;gap:12px;flex-wrap:wrap}.button{display:inline-block;text-decoration:none;padding:13px 19px;border-radius:3px;background:var(--forest);color:white;font-size:14px;font-weight:650}.button.secondary{background:transparent;color:var(--ink);border:1px solid var(--line)}.hero-aside{border-left:1px solid var(--line);padding-left:34px}.stat{padding:20px 0;border-bottom:1px solid var(--line)}.stat strong{display:block;font-family:Georgia,serif;font-size:30px;font-weight:400}.stat span{font-size:13px;color:var(--muted)}section{padding:105px 0;border-top:1px solid var(--line)}.section-head{display:grid;grid-template-columns:.55fr 1.45fr;gap:60px;margin-bottom:55px}.num{font-size:12px;letter-spacing:.18em;color:var(--muted)}h2{font-family:Georgia,serif;font-size:clamp(38px,5vw,62px);line-height:1.05;font-weight:400;letter-spacing:-.035em;margin:0}.section-intro{font-size:18px;color:var(--muted);max-width:760px;margin:22px 0 0}.services{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink)}.service{padding:32px 28px 35px 0;border-bottom:1px solid var(--line);margin-right:28px}.service:nth-child(3n){margin-right:0}.service .tag{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--forest);font-weight:750}.service h3{font-family:Georgia,serif;font-size:27px;font-weight:400;line-height:1.15;margin:16px 0 14px}.service p{color:var(--muted);font-size:15px}.service ul{padding-left:18px;color:var(--muted);font-size:14px}.band{background:var(--forest);color:#f5f1e7}.band section{border:0}.band .num,.band .section-intro{color:#c9d4cd}.process{display:grid;grid-template-columns:repeat(4,1fr);gap:34px;margin-top:50px}.step{border-top:1px solid #789082;padding-top:22px}.step b{font-family:Georgia,serif;font-size:23px;font-weight:400;display:block;margin-bottom:10px}.step p{font-size:14px;color:#d5ddd8}.about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:start}.about-card{background:var(--sage);padding:40px}.about-card .initials{font-family:Georgia,serif;font-size:82px;line-height:1;color:var(--forest);margin-bottom:90px}.about-card p{margin:0;font-size:14px}.about-copy p{font-size:18px;color:var(--muted);margin-top:0}.credentials{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line);margin-top:35px}.credential{padding:18px 20px 18px 0;border-bottom:1px solid var(--line)}.credential b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:5px}.credential span{font-size:14px;color:var(--muted)}.audience{display:grid;grid-template-columns:1fr 1fr;gap:25px}.audience-card{background:var(--white);padding:38px;border:1px solid var(--line)}.audience-card h3{font-family:Georgia,serif;font-size:30px;font-weight:400;margin:0 0 15px}.audience-card p{color:var(--muted)}.cta{text-align:center;padding:120px 0}.cta h2{max-width:820px;margin:0 auto 25px}.cta p{color:var(--muted);font-size:18px;max-width:650px;margin:0 auto 30px}footer{border-top:1px solid var(--line);padding:30px 0 45px;color:var(--muted);font-size:13px}.footer{display:flex;justify-content:space-between;gap:20px}.footer a{color:var(--ink)}@media(max-width:800px){.links a:not(.contact-pill){display:none}.hero{grid-template-columns:1fr;min-height:auto;padding:70px 0}.hero-aside{border-left:0;border-top:1px solid var(--line);padding:20px 0 0}.section-head,.about-grid{grid-template-columns:1fr;gap:22px}.services{grid-template-columns:1fr}.service{margin-right:0}.process{grid-template-columns:1fr 1fr}.audience{grid-template-columns:1fr}.hero h1{font-size:54px}section{padding:75px 0}.footer{flex-direction:column}}@media(max-width:480px){.process{grid-template-columns:1fr}.wrap,.nav{padding-left:20px;padding-right:20px}.hero h1{font-size:46px}}
 </style>
 </head>
 <body>
-
-
-  
-<div class="header">
-  <h3 href="#Projects">R. Alex Thompson</h3>
-</div>
-  <div class="header-right">
-    <div class="tab">
-    <button class="tablinks" onclick="clickHandle(event, '#Projects')">Projects</button>
-    <button class="tablinks" onclick="clickHandle(event, '#Code')">Code</button>
-    <button class="tablinks" onclick="clickHandle(event, '#About')">About</button>
-    </div>
-  </div>
-
-
-<div id="#Projects" class="tabcontent">
-  <h2>A Neutral Theory of Plant Carbon Allocation</h2>
-  <img src="/NT1.gif", alt="Simulation gif of neutral theory markov chain at work.", width=400, height=400, class="center">
-  <p>I'm developing a neutral theory of plant carbon allocation, leveraging the biochemical network of plant carbon metabolism.</p>
-  <p>Plants take in carbon via photosynthesis and face a set of 'decisions' in how to allocate this carbon.</p>
-  <p>For instance, some carbon may be used for growth.</p>
-  <p>However, whether a preference exists for the allocation of carbon (growth first and other sinks later) has been at the center of much debate.</p>
-  <p>Neutral theory is a minimum assumption model with the aim of asking: what happens if carbon allocation was completely random? Do rules emerge from the network of chemical reactions that can explain empirical observations?</p>
-  <p>The basic approach is to allow carbon allocation to work like a random walk, where the movement of carbon between intermediate products is simply a function of how many intermediates are directly connected by an edge to the current state.</p>
-  <p>As the number of steps tends to infinity, we can derive the stationary probability of absorption to each sink (growth, storage, respiration, defense).</p>
-  <p>The simulation process is shown in the gif above and the paper is currently in review at Tree Physiology.</p>
-</div>
-
-<div id="#Code" class="tabcontent">
-  <h3>Code</h3>
-    <p><a href="https://github.com/r-alex-thompson/NSC-Methods">NSC Analysis in R</a></p>
-    <p><a href="https://github.com/r-alex-thompson/SUMO">No carbon storage for growth-limited trees</a></p>
-    <p><a href="https://github.com/r-alex-thompson/MVstat/tree/master">Multivariate Analysis in R</a></p>
-    <p><a href="https://github.com/r-alex-thompson/LinearMixedEffects">Linear Mixed-Effects Models in R</a></p>
-  
-</div>
-
-<div id="#About" class="tabcontent">
-  <h3>About</h3>
-  <img src="/self.png", alt="Selfie", width=400, height=400, class="center">
-  <p>I'm a data scientist with a background in plant physiological ecology.</p> 
-  <p>In my current role as an NSF Graduate Research Fellow, I am responsible for applying complex statistical analyses to experimental data from a long-term drought experiment to build predictive models of tree mortality.</p> 
-  <p>I have leveraged mathematical modeling techniques from dynamical systems and stochastic processes to model tree responses to the environment, explored spatial patterns of tree mortality in response to climate, and have extensive experience visualizing the results of these models using Python and R.</p>
-  <p>I'm always interested in collaborating on fun data projects. Feel free to reach out at robert.alex.thompson@gmail.com</p>
-</div>
-
-
-
-
-
-
-<script>
-function clickHandle(evt, animalName) {
-  let i, tabcontent, tablinks;
-
-  // This is to clear the previous clicked content.
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-
-  // Set the tab to be "active".
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-
-  // Display the clicked tab and set it to active.
-  document.getElementById(animalName).style.display = "block";
-  evt.currentTarget.className += " active";
-}
-</script>
-
-  
-</body>
-</html>
+<nav><div class="nav"><a class="brand" href="#top">R. Alex Thompson<small>Forest carbon science & modeling</small></a><div class="links"><a href="#services">Services</a><a href="#about">About</a><a href="#approach">Approach</a><a class="contact-pill" href="mailto:robert.alex.thompson@gmail.com">Contact</a></div></div></nav>
+<main id="top">
+<div class="wrap"><div class="hero"><div><div class="eyebrow">Independent technical consulting · Nature-based carbon</div><h1>Carbon models built on <em>ecology.</em></h1><p class="lead">I help nature-based carbon developers and investors build, evaluate, and pressure-test ex-ante carbon models — with a focus on the biological assumptions that determine whether projects actually deliver.</p><div class="actions"><a class="button" href="mailto:robert.alex.thompson@gmail.com?subject=Carbon%20project%20consulting">Discuss a project</a><a class="button secondary" href="#services">See services</a></div></div><aside class="hero-aside"><div class="stat"><strong>PhD</strong><span>Forest ecology + applied statistics</span></div><div class="stat"><strong>Investor-side</strong><span>Experience diligencing nature-based carbon projects</span></div><div class="stat"><strong>Independent</strong><span>Flexible support for developers, investors, and buyers</span></div></aside></div></div>
+<section id="services"><div class="wrap"><div class="section-head"><div class="num">01 · SERVICES</div><div><h2>Technical work for the assumptions that matter.</h2><p class="section-intro">Carbon curves are only as credible as the ecology underneath them. I provide focused support from early project design through investment diligence.</p></div></div><div class="services"><article class="service"><div class="tag">Build</div><h3>Full ex-ante carbon models</h3><p>Project-specific models built from the ground up for early-stage nature-based projects.</p><ul><li>Baseline and project scenarios</li><li>Growth, survival, and mortality</li><li>Uncertainty and deductions</li><li>Leakage and eligible carbon pools</li><li>Year-by-year issuance trajectories</li></ul></article><article class="service"><div class="tag">Strengthen</div><h3>Growth & survival modeling</h3><p>Biologically defensible trajectories when the broader project model is already in place.</p><ul><li>Species- and site-specific growth</li><li>Establishment survival</li><li>Long-term mortality</li><li>ANR ecosystem trajectories</li><li>High / base / low scenarios</li></ul></article><article class="service"><div class="tag">Review</div><h3>Independent technical diligence</h3><p>Pressure-testing developer projections before capital is committed or credits are contracted.</p><ul><li>Model and assumption review</li><li>Literature and data validation</li><li>Delivery-risk assessment</li><li>Uncertainty diagnosis</li><li>Decision-ready technical memos</li></ul></article><article class="service"><div class="tag">Stress test</div><h3>Climate scenario analysis</h3><p>Evaluate how future climate conditions could alter growth, survival, and projected delivery.</p></article><article class="service"><div class="tag">Quantify</div><h3>Allometry & biomass</h3><p>Review or develop biomass relationships and quantify uncertainty from field measurements through carbon estimates.</p></article><article class="service"><div class="tag">Custom</div><h3>Statistical & ecological advisory</h3><p>Targeted analysis for unusual datasets, methodologies, ecological questions, or project-specific modeling problems.</p></article></div></div></section>
+<div class="band"><section id="approach"><div class="wrap"><div class="section-head"><div class="num">02 · APPROACH</div><div><h2>From biological assumption to investment consequence.</h2><p class="section-intro">The goal is not a more complicated model. It is a model whose assumptions are transparent, evidence-based, and useful for making decisions.</p></div></div><div class="process"><div class="step"><b>01 · Understand</b><p>Define the project, methodology, available data, and the decision the model needs to support.</p></div><div class="step"><b>02 · Test</b><p>Interrogate growth, survival, mortality, allometry, baseline, and uncertainty assumptions against evidence.</p></div><div class="step"><b>03 · Model</b><p>Translate biological evidence into transparent scenarios and year-by-year carbon trajectories.</p></div><div class="step"><b>04 · Communicate</b><p>Deliver models and concise technical documentation that can stand up to buyer, investor, or third-party review.</p></div></div></div></section></div>
+<section id="about"><div class="wrap"><div class="section-head"><div class="num">03 · ABOUT</div><div><h2>Forest science, statistics, and carbon-market diligence.</h2></div></div><div class="about-grid"><div class="about-card"><div class="initials">RAT</div><p><strong>R. Alex Thompson, PhD</strong><br>Independent forest carbon consultant<br>Based in North Carolina · Working globally</p></div><div class="about-copy"><p>I’m a forest ecologist and applied statistician. Most recently, I worked on the investment side at Rubicon Carbon, evaluating nature-based carbon projects and the models used to forecast credit delivery.</p><p>My scientific background is in plant physiological ecology: how trees acquire, allocate, store, and lose carbon under changing environmental conditions. I bring that biological perspective into carbon-project modeling, where seemingly small assumptions about growth, mortality, survival, and biomass can materially change projected issuances.</p><p>Today I work independently with developers and capital providers that need additional technical capacity, a model built from scratch, or an outside view on whether the numbers hold up.</p><div class="credentials"><div class="credential"><b>Training</b><span>PhD, Environmental & Natural Resource Science · Minor in Applied Statistics</span></div><div class="credential"><b>Research</b><span>Forest ecology · Ecophysiology · Carbon allocation · Tree mortality</span></div><div class="credential"><b>Carbon markets</b><span>Technical diligence · Ex-ante forecasting · MRV · Delivery risk</span></div><div class="credential"><b>Methods</b><span>Statistical modeling · R · Spatial & climate data · Uncertainty analysis</span></div></div></div></div></div></section>
+<section><div class="wrap"><div class="section-head"><div class="num">04 · WHO I WORK WITH</div><div><h2>Support on either side of the diligence table.</h2></div></div><div class="audience"><div class="audience-card"><h3>Project developers</h3><p>Build investor-ready ex-ante models, strengthen ecological assumptions, fill temporary technical capacity gaps, and prepare projections for buyer or third-party diligence.</p></div><div class="audience-card"><h3>Investors & buyers</h3><p>Independently assess project models, identify assumptions driving delivery risk, and translate technical uncertainty into decision-useful scenarios.</p></div></div></div></section>
+<div class="wrap"><div class="cta"><div class="eyebrow">Have a project or model to discuss?</div><h2>Bring me the assumptions you’re least comfortable with.</h2><p>A short introductory conversation is usually enough to determine whether I can help and what a useful scope would look like.</p><a class="button" href="mailto:robert.alex.thompson@gmail.com?subject=Carbon%20project%20consulting">Get in touch</a></div></div>
+</main>
+<footer><div class="wrap footer"><span>© 2026 R. Alex Thompson, PhD · Independent nature-based carbon consulting</span><span><a href="mailto:robert.alex.thompson@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/r-alex-thompson/">LinkedIn</a> · <a href="https://github.com/r-alex-thompson">GitHub</a></span></div></footer>
+</body></html>
