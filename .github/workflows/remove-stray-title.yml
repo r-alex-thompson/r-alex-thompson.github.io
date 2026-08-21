@@ -1,0 +1,38 @@
+name: Remove stray About title
+on:
+  push:
+    paths: ['.github/workflows/remove-stray-title.yml']
+permissions:
+  contents: write
+jobs:
+  edit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('index.html'); s=p.read_text()
+          m=re.search(r'<section id="about".*?</section>',s,re.S)
+          if not m: raise SystemExit('about not found')
+          sec=m.group(0)
+          # Keep the role inside the portrait-column principal block; remove any duplicate elsewhere in About.
+          pm=re.search(r'<div class="portrait-column">.*?</div>\s*(?=<div class="about-copy">)',sec,re.S)
+          protected=pm.group(0) if pm else ''
+          rest=sec[len(protected):] if protected and sec.startswith(protected) else sec
+          rest=re.sub(r'<[^>]+>\s*Principal Ecologist\s*</[^>]+>','',rest,flags=re.I)
+          if protected and sec.startswith(protected): sec=protected+rest
+          else:
+              # specifically remove standalone duplicate after About prose, not the .role element
+              sec=re.sub(r'<(p|div|span)(?![^>]*class="[^"]*role)[^>]*>\s*Principal Ecologist\s*</\1>','',sec,flags=re.I)
+          s=s[:m.start()]+sec+s[m.end():]
+          p.write_text(s)
+          PY
+      - run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add index.html
+          git commit -m 'Remove duplicate Principal Ecologist from About copy' || exit 0
+          git push origin main
