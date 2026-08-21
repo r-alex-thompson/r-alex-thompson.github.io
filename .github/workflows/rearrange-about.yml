@@ -1,0 +1,60 @@
+name: Rearrange About profile
+
+on:
+  push:
+    paths:
+      - '.github/workflows/rearrange-about.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  edit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Rearrange About section
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('index.html')
+          s=p.read_text()
+          # Find current about section and make the left portrait column contain portrait, identity, then contact.
+          m=re.search(r'<section id="about".*?</section>', s, re.S)
+          if not m:
+              raise SystemExit('About section not found')
+          sec=m.group(0)
+          # capture portrait image
+          img=re.search(r'<div class="portrait-slot">.*?</div>', sec, re.S)
+          if not img:
+              raise SystemExit('Portrait slot not found')
+          portrait=img.group(0)
+          # remove existing principal and connect blocks wherever they currently are
+          sec2=re.sub(r'<div class="principal">.*?</div>', '', sec, flags=re.S)
+          cm=re.search(r'<div class="connect">.*?</div>', sec2, re.S)
+          connect=cm.group(0) if cm else ''
+          if not connect:
+              raise SystemExit('Connect block not found')
+          sec2=sec2.replace(connect,'')
+          # remove GitHub row from contact block
+          connect=re.sub(r'<a[^>]*href="[^"]*github\.com[^"]*"[^>]*>.*?</a>', '', connect, flags=re.S|re.I)
+          identity='<div class="principal"><div class="name">R. Alex Thompson, PhD</div><div class="role">Principal Ecologist</div></div>'
+          left='<div class="portrait-column">'+portrait+identity+connect+'</div>'
+          # replace portrait slot (and optional existing portrait-column wrapper) with new left column
+          if re.search(r'<div class="portrait-column">.*?</div>\s*(?=<div class="about-copy">)', sec2, re.S):
+              sec2=re.sub(r'<div class="portrait-column">.*?</div>\s*(?=<div class="about-copy">)', left, sec2, count=1, flags=re.S)
+          else:
+              sec2=sec2.replace(portrait,left,1)
+          s=s[:m.start()]+sec2+s[m.end():]
+          p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Move profile identity beneath portrait and remove GitHub contact" || exit 0
+          git push origin main
