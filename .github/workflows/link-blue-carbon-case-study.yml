@@ -1,0 +1,33 @@
+name: Link blue carbon case study
+on:
+  push:
+    paths:
+      - '.github/workflows/link-blue-carbon-case-study.yml'
+permissions:
+  contents: write
+jobs:
+  edit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Link case study
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('services.html')
+          s=p.read_text()
+          old='<article class="case placeholder"><div class="tag">Case study placeholder</div><h4>Tropical forest restoration</h4><p>Latin America · Ex-ante biomass, survival, mortality, and issuance modeling.</p></article>'
+          new='<a class="case" href="case-study-blue-carbon.html" style="text-decoration:none"><div class="tag">Case study</div><h4>Blue carbon mangrove restoration</h4><p>Indonesia · Bayesian growth, allometry, SOC, baseline, and 40-year issuance modeling.</p></a>'
+          if old not in s:
+              raise SystemExit('Expected placeholder not found')
+          p.write_text(s.replace(old,new,1))
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add services.html
+          git commit -m "Link blue carbon case study" || exit 0
+          git push origin main
