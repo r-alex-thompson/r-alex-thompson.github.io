@@ -1,0 +1,6 @@
+assumption,developer_value,empirical_percentile,interpretation,evidence_class
+2-year survival,90%,100,Materially optimistic,Colombia + contextual Latin American restoration observations
+Age-10 AGB,97 Mg/ha,76.13168724279835,Optimistic / stress-test,Humid/wet Neotropics
+Age-40 AGB,220 Mg/ha,72.97297297297297,Empirically central,Humid/wet Neotropics
+Annual mortality,1.0%/yr,87.5,Optimistic / stress-test,Colombia + Amazon/Neotropical permanent plots
+Allometry,Chave et al. 2014,NA,Compare against Colombia-specific Alvarez equation,Pantropical equation vs Colombia-specific harvested-tree equation
