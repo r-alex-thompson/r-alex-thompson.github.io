@@ -1,0 +1,57 @@
+name: Unify site header
+
+on:
+  push:
+    paths:
+      - '.github/workflows/unify-site-header.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  unify-header:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Apply unified Dendro header to every HTML page
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          css = r'''<style id="unified-dendro-header">
+          .site-header-unified{background:#050605;border-bottom:1px solid #343734;position:relative;z-index:2000}.site-header-unified .site-masthead{min-height:108px;display:flex;align-items:center;gap:34px}.site-header-unified .site-brand-mark{font-family:Baskerville,"Iowan Old Style",Palatino,Georgia,serif;font-size:68px;font-weight:400;line-height:.8;letter-spacing:-.055em;text-decoration:none;white-space:nowrap;color:#f0ede5}.site-header-unified .site-brand-mark .slash{color:#a9b88a;padding:0 .04em}.site-header-unified .site-brand-name{font-family:Baskerville,"Iowan Old Style",Palatino,Georgia,serif;font-size:25px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;color:#f0ede5}.site-header-unified .site-nav-wrap{border-top:1px solid #2e312e}.site-header-unified .site-nav{min-height:66px;display:grid;grid-template-columns:repeat(4,max-content) 1fr;align-items:center;gap:46px}.site-header-unified .site-nav a{text-decoration:none;text-transform:uppercase;font-size:11px;letter-spacing:.15em;color:#e9e6de;white-space:nowrap}.site-header-unified .site-nav a:hover,.site-header-unified .site-nav .active{color:#a9b88a}.site-header-unified .site-nav .cta{justify-self:end;border:1px solid #a9b88a;color:#a9b88a;padding:11px 17px;border-radius:3px}.site-header-unified .site-nav .cta:hover{background:#a9b88a;color:#080908}@media(max-width:1050px){.site-header-unified .site-nav{gap:24px}}@media(max-width:780px){.site-header-unified .site-masthead{min-height:96px;gap:20px}.site-header-unified .site-brand-mark{font-size:55px}.site-header-unified .site-brand-name{font-size:18px}.site-header-unified .site-nav{grid-template-columns:1fr 1fr;gap:0;padding-top:8px;padding-bottom:8px}.site-header-unified .site-nav a{padding:8px 0}.site-header-unified .site-nav .cta{justify-self:start;margin-top:5px}}@media(max-width:560px){.site-header-unified .site-brand-name{font-size:15px;letter-spacing:.14em}.site-header-unified .site-nav{grid-template-columns:1fr}}
+          </style>'''
+
+          def header_for(name):
+              active = 'cases' if name == 'case-studies.html' or name.startswith('case-study-') else ('services' if name == 'services.html' else ('where' if name == 'where-we-work.html' else ('about' if name in {'about-contact.html','about.html'} else '')))
+              def cls(key): return ' class="active"' if active == key else ''
+              return f'''<header class="site-header-unified"><div class="shell site-masthead"><a class="site-brand-mark" href="index.html" aria-label="Dendro Analytics home">D<span class="slash">/</span>A</a><div class="site-brand-name">Dendro Analytics</div></div><div class="site-nav-wrap"><nav class="shell site-nav"><a{cls('services')} href="services.html">How We Work</a><a{cls('cases')} href="case-studies.html">Case Studies</a><a{cls('where')} href="where-we-work.html">Where We Work</a><a{cls('about')} href="about-contact.html">About / Contact</a><a class="cta" href="mailto:robert.alex.thompson@gmail.com?subject=Discuss%20a%20project">Discuss Your Project&nbsp;&nbsp;→</a></nav></div></header>'''
+
+          changed=[]
+          for p in Path('.').glob('*.html'):
+              text=p.read_text()
+              header=header_for(p.name)
+              # Replace either the newer two-tier header or the older single nav.
+              if re.search(r'<header class="site-header(?:-unified)?".*?</header>', text, flags=re.S):
+                  text=re.sub(r'<header class="site-header(?:-unified)?".*?</header>', header, text, count=1, flags=re.S)
+              elif re.search(r'<nav\b.*?</nav>', text, flags=re.S):
+                  text=re.sub(r'<nav\b.*?</nav>', header, text, count=1, flags=re.S)
+              else:
+                  print('No header/nav found:', p)
+                  continue
+              if 'id="unified-dendro-header"' not in text:
+                  text=text.replace('</head>', css+'</head>', 1)
+              p.write_text(text)
+              changed.append(str(p))
+          print('Updated', len(changed), 'HTML files')
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add '*.html'
+          git commit -m "Unify site-wide header and navigation" || exit 0
+          git push origin main
