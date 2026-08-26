@@ -1,0 +1,63 @@
+name: Remove retired case studies and fix map
+on:
+  push:
+    paths:
+      - '.github/workflows/remove-retired-case-studies.yml'
+permissions:
+  contents: write
+jobs:
+  edit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Update site
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          # Case studies index: remove retired cards and references.
+          p = Path('case-studies.html')
+          s = p.read_text()
+          s = re.sub(r'<a class="case" href="case-study-blue-carbon\.html">.*?</a>', '', s, count=1)
+          s = re.sub(r'<a class="case" href="case-study-tropical-reforestation\.html">.*?</a>', '', s, count=1)
+          s = s.replace('Technical case studies from Dendro Analytics across blue carbon, tropical reforestation, and agricultural soil carbon.', 'Technical case studies from Dendro Analytics across nature-based carbon and agricultural soil carbon.')
+          s = s.replace('.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}', '.grid{display:grid;grid-template-columns:minmax(0,620px);gap:22px}')
+          p.write_text(s)
+
+          # Services: remove the retired project examples but keep the service sections.
+          p = Path('services.html')
+          s = p.read_text()
+          s = re.sub(
+              r'<div class="examples"><h3>Case Studies</h3><div class="examples-grid"><a class="case" href="case-study-blue-carbon\.html">.*?</a></div></div>',
+              '<div class="examples"><h3>Case Studies</h3><p>New case study in development.</p></div>', s, count=1)
+          s = re.sub(
+              r'<div class="examples"><h3>Case Studies</h3><div class="examples-grid"><a class="case" href="case-study-tropical-reforestation\.html">.*?</a></div></div>',
+              '<div class="examples"><h3>Case Studies</h3><p>New case study in development.</p></div>', s, count=1)
+          p.write_text(s)
+
+          # Where We Work: remove retired project locations and switch to a key-free OSM basemap.
+          p = Path('where-we-work.html')
+          s = p.read_text()
+          s = re.sub(r"\{region:'Colombia'.*?\},", '', s, count=1)
+          s = re.sub(r"\{region:'Indonesia'.*?\},", '', s, count=1)
+          s = s.replace("L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:20,attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(map);", "L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);")
+          if '.leaflet-tile-pane{filter:' not in s:
+              s = s.replace('.map-note{font-size:11px;color:#777b75;margin-top:15px}', '.map-note{font-size:11px;color:#777b75;margin-top:15px}.leaflet-tile-pane{filter:grayscale(1) invert(.88) hue-rotate(180deg) brightness(.72) contrast(1.15)}')
+          p.write_text(s)
+
+          # Fully remove retired case-study pages and obsolete relinking workflow.
+          for f in ['case-study-blue-carbon.html', 'case-study-tropical-reforestation.html', '.github/workflows/link-blue-carbon-case-study.yml']:
+              q = Path(f)
+              if q.exists():
+                  q.unlink()
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Remove retired case studies and fix map" || exit 0
+          git push origin main
