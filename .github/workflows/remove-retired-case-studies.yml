@@ -61,3 +61,4 @@ jobs:
           git add -A
           git commit -m "Remove retired case studies and fix map" || exit 0
           git push origin main
+# trigger cleanup
