@@ -1,4 +1,13 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dendro Analytics | Climate exposure</title><meta name="description" content="Explore local forecast rainfall, temperature and forest productivity responses in the October 2026 CFSv2 scenario."><link rel="stylesheet" href="vendor/leaflet.css"><link rel="stylesheet" href="climate.css"></head><body><div style="padding:10px 4%;background:#20271c;color:#c6d2b4;font:12px Arial,sans-serif"><a href="../index.html" style="color:inherit">← Return to case study</a></div>
+<!doctype html><html lang="en"><head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FP9MQ3FNGY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-FP9MQ3FNGY');
+</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dendro Analytics | Climate exposure</title><meta name="description" content="Explore local forecast rainfall, temperature and forest productivity responses in the October 2026 CFSv2 scenario."><link rel="stylesheet" href="vendor/leaflet.css"><link rel="stylesheet" href="climate.css"></head><body><div style="padding:10px 4%;background:#20271c;color:#c6d2b4;font:12px Arial,sans-serif"><a href="../index.html" style="color:inherit">← Return to case study</a></div>
 <header><a class="brand" href="index.html">D<span>/</span>A <small>DENDRO ANALYTICS</small></a><nav><a class="active" href="climate.html">Climate exposure</a><a href="#response">Productivity sensitivity</a><a href="index.html">471 projects ↗</a></nav></header>
 <section class="intro"><span class="eyebrow">01 / CLIMATE EXPOSURE</span><h1>From forecast weather<br>to forest productivity.</h1><p>Explore the local rainfall and temperature departures in the saved October 2026 CFSv2 scenario. Zoom in, then select a forest grid cell to see its exposure and estimated NPP response.</p><div class="chips"><span>32 weather members</span><span>5,104 forest grid cells</span><span>Approximately 1° resolution</span></div></section>
 <div class="controls"><label>Year<select id="year"><option>2026</option><option selected>2027</option></select></label><label>Map layer<select id="metric"><option value="rain">Precipitation departure · mm/year</option><option value="temp">Temperature departure · °C</option><option value="npp">Estimated NPP response · %</option></select></label><label>Climate statistic<select id="stat"><option value="0">Ensemble mean</option><option value="1">16th percentile</option><option value="2">84th percentile</option><option value="spread">68% ensemble width</option></select></label><label>Biome<select id="biome"><option value="all">All biomes</option></select></label><button id="reset">Reset view</button></div>
