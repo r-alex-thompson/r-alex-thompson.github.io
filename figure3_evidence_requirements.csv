@@ -1,0 +1,7 @@
+registry,historical_production,market_parameters,hosting_area,spatial_monitoring,mitigation_evidence
+Verra,Required,Defaults or evidence,Conditional,Method-dependent,Formal production evidence
+SOCIALCARBON,Required,Defaults or evidence,Mitigation areas,Production monitoring,Contracts and production evidence
+Isometric,Required,Elasticities and land conversion,Conditional,Activity-shifting monitoring,Formal production evidence
+Gold Standard,Credible estimate or survey,Not central,Conditional,No continuing parameter,Evidence of tree-biomass exposure
+Equitable Earth,Displaced activity,No separate market model,Known or unknown,Spatial carbon monitoring,Location and displacement evidence
+CAR,Historical land use,Prescribed risk factors,Not required,No dedicated leakage belt,Grazing intensity and viability
